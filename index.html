@@ -7,49 +7,21 @@
     <script src="http://d3js.org/d3.v7.min.js"></script>
   </head>
   <body>
-    <!-- svg 요소 생성 -->
-    <svg id="chart" width="400" height="300"></svg>
     <script>
-      const ObjectArray = [
-        { drink: "커피", count: 2 },
-        { drink: "우유", count: 5 },
-        { drink: "물", count: 3}
-      ];
+      const Data = [30, 50 ,90, 120, 150, 190];
 
-      // select 메서드로 svg 요소를 선택
-      let svg = d3.select("#chart"),
-        // 속성 width를 선택하고 대입한다.?
-        width = +svg.attr("width"),
-        height = +svg.attr("height"),
-        // 둘 중 가장 작은 값을 반환
-        radius = Math.min(width, height) / 2;
-        g = svg.append("g").attr("transform", "translate("+ width / 2 + "," + height / 2 + ")");
-        // 순서 또는 범주
-        const color = d3.scaleOrdinal(['#ffae73', '#c7d4e8', '#ffc966']);
-        // d3.pie 파이 차트 생성 메서드 d의 객체 count를 반환
-        let pie = d3.pie().value(function(d) {return d.count; });
-        // ObjectArray 파이 차트를 지정
-        let data_ready = pie(ObjectArray);
+      const svg = d3.select('body').append('svg')
+        .attr('width', 500)
+        .attr('height', 200);
 
-        // d3.arc 아크 생성 메서드
-        let arc = d3.arc()
-        // 내부 반지름 0
-          .innerRadius(0)
-          // 외부 반지름은 가장 작은 값
-          .outerRadius(radius);
-
-        // 데이터를 기반으로 아크 그리기
-        g.selectAll('path')
-          // 데이터 가져오기
-          .data(data_ready)
-          .enter()
-          .append('path')
-          .attr('d', arc)
-          .attr('fill', function(d) {return (color(d.data.drink)); })
-          .attr("stroke", "white")
-          .style("stroke-width", "2px")
-          .style("opacity", 0.7);
-
+      const binding = svg.selectAll('rect')
+        .data(Data)
+        .enter().append('rect')
+        .attr('x', (d, i) => i * 80)
+        .attr('y', d => 200 - d)
+        .attr('width', 50)
+        .attr('height', d => d)
+        .attr('fill', 'teal');
     </script>
   </body>
 </html>
