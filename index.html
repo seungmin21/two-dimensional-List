@@ -10,12 +10,18 @@
     <script>
       const Data = [30, 50 ,90, 120, 150, 190];
 
+      // svg 요소 지정
       const svg = d3.select('body').append('svg')
+      // svg 요소의 높이와 넓이 지정
         .attr('width', 500)
         .attr('height', 200);
 
+      // rect는 사각형을 그리는 기본 svg 모양
       const binding = svg.selectAll('rect')
+        // 위의 배열 데이터 가져오기
         .data(Data)
+        // 아직 없는 요소를 가상 객체로 만들어주는 것
+        // append 가상 객체의 부모의 자식 요소로 지정
         .enter().append('rect')
         .attr('x', (d, i) => i * 80)
         .attr('y', d => 200 - d)
